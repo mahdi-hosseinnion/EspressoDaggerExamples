@@ -1,6 +1,8 @@
 package com.example.myespressodaggerexamples.di
 
 import android.app.Application
+import com.example.myespressodaggerexamples.api.FakeApiService
+import com.example.myespressodaggerexamples.repository.FakeMainRepositoryImpl
 import dagger.BindsInstance
 import dagger.Component
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -12,14 +14,16 @@ import javax.inject.Singleton
 @Singleton
 @Component(
     modules = [
-        FragmentModule::class,
-        ViewModelModule::class,
-        InternalBindingsModule::class,
-        AppModule::class,
-        RepositoryModule::class
+        TestAppModule::class,
+        TestFragmentModule::class,
+        TestViewModelModule::class
     ]
 )
 interface TestAppComponent : AppComponent {
+
+    val apiService: FakeApiService
+
+    val mainRepository: FakeMainRepositoryImpl
 
     @Component.Builder
     interface Builder {
