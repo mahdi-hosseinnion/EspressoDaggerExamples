@@ -19,7 +19,7 @@ constructor(
 
     var blogPostJsonFileName: String = Constants.BLOG_POSTS_DATA_FILENAME
     var categoriesJsonFileName: String = Constants.CATEGORIES_DATA_FILENAME
-    var networkTimeout: Long = 0L
+    var networkDelay: Long = 0L
 
     override suspend fun getBlogPosts(category: String): List<BlogPost> {
         val rawJson = jsonUtil.readJSONFromAsset(blogPostJsonFileName)
@@ -28,7 +28,7 @@ constructor(
                 object : TypeToken<List<BlogPost>>() {}.type
         )
         val filteredBlog = blogs.filter { blogPost -> blogPost.category == category }
-        delay(networkTimeout)
+        delay(networkDelay)
         return filteredBlog
     }
 
@@ -38,7 +38,7 @@ constructor(
                 rawJson,
                 object : TypeToken<List<BlogPost>>() {}.type
         )
-        delay(networkTimeout)
+        delay(networkDelay)
         return blogs
     }
 
@@ -48,7 +48,7 @@ constructor(
                 rawJson,
                 object : TypeToken<List<Category>>() {}.type
         )
-        delay(networkTimeout)
+        delay(networkDelay)
         return categories
     }
 }
