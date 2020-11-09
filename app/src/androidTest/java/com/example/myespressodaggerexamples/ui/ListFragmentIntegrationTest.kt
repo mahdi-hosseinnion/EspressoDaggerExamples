@@ -153,6 +153,7 @@ class ListFragmentIntegrationTest : BaseMainActivityTests() {
 
         onView(withText("Vancouver PNE 2019")).check(doesNotExist())
     }
+
     @Test
     fun testListData_isScrolling_funCategory() {
         //setup
@@ -188,9 +189,41 @@ class ListFragmentIntegrationTest : BaseMainActivityTests() {
 
         onView(withText("My Brother Blake")).check(matches(isDisplayed()))
 
-        onView(withText( "Blake Posing for his Website")).check(matches(isDisplayed()))
+        onView(withText("Blake Posing for his Website")).check(matches(isDisplayed()))
 
         onView(withText("Aldergrove Park")).check(doesNotExist())
+    }
+
+    @Test
+    fun isInstanceStateSavedAndRestored_OnDestroyActivity() {
+        //setup
+        val app = getApp()
+        val apiService = configureFakeApiService(
+            blogPostJsonFileName = Constants.BLOG_POSTS_DATA_FILENAME,
+            categoriesJsonFileName = Constants.CATEGORIES_DATA_FILENAME,
+            networkDelay = 0,
+            application = app
+        )
+        configureFakeRepository(apiService, app)
+        injectTest(app)
+        //setup activity
+        val scenario = launchActivity<MainActivity>()
+
+        val recyclerView = onView(withId(R.id.recycler_view))
+
+        recyclerView.check(matches(isDisplayed()))
+
+        recyclerView.perform(
+            RecyclerViewActions.scrollToPosition<BlogPostListAdapter.BlogPostViewHolder>(8)
+        )
+
+        onView(withText("Blake Posing for his Website")).check(matches(isDisplayed()))
+
+        scenario.recreate()
+
+        onView(withText("Blake Posing for his Website")).check(matches(isDisplayed()))
+
+
     }
 
     private fun getApp(): TestBaseApplication =
