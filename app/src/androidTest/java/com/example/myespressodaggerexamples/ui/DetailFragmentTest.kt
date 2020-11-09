@@ -33,7 +33,7 @@ import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
 @InternalCoroutinesApi
-class DetailFragmentTest {
+class DetailFragmentTest:BaseMainActivityTests() {
 
 
     @Inject
@@ -100,30 +100,9 @@ class DetailFragmentTest {
 
     }
 
-    fun injectTest(application: TestBaseApplication) {
+    override fun injectTest(application: TestBaseApplication) {
         (application.appComponent as TestAppComponent)
             .inject(this)
     }
 
-    fun configureFakeApiService(
-        blogPostJsonFileName: String?,
-        categoriesJsonFileName: String?,
-        networkDelay: Long?,
-        application: TestBaseApplication
-    ): FakeApiService {
-        val fakeApiService = (application.appComponent as TestAppComponent).apiService
-        blogPostJsonFileName?.let { fakeApiService.blogPostJsonFileName = it }
-        categoriesJsonFileName?.let { fakeApiService.categoriesJsonFileName = it }
-        networkDelay?.let { fakeApiService.networkDelay = it }
-        return fakeApiService
-    }
-
-    fun configureFakeRepository(
-        apiService: FakeApiService,
-        application: TestBaseApplication
-    ): FakeMainRepositoryImpl {
-        val mainRepository = (application.appComponent as TestAppComponent).mainRepository
-        mainRepository.apiService = apiService
-        return mainRepository
-    }
 }
