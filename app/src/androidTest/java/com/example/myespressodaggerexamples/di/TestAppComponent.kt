@@ -5,6 +5,7 @@ import com.example.myespressodaggerexamples.api.FakeApiService
 import com.example.myespressodaggerexamples.repository.FakeMainRepositoryImpl
 import com.example.myespressodaggerexamples.ui.DetailFragment
 import com.example.myespressodaggerexamples.ui.DetailFragmentTest
+import com.example.myespressodaggerexamples.ui.ListFragmentIntegrationTest
 import dagger.BindsInstance
 import dagger.Component
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -35,5 +36,7 @@ interface TestAppComponent : AppComponent {
 
         fun build(): TestAppComponent
     }
+
     fun inject(detailFragmentTest: DetailFragmentTest)
+    fun inject(listFragmentIntegrationTest: ListFragmentIntegrationTest)
 }
