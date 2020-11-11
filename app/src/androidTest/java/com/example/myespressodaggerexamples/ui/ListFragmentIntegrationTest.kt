@@ -226,8 +226,8 @@ class ListFragmentIntegrationTest : BaseMainActivityTests() {
 
     }
 
-    private fun getApp(): TestBaseApplication =
-        InstrumentationRegistry.getInstrumentation().targetContext.applicationContext as TestBaseApplication
+/*    private fun getApp(): TestBaseApplication =
+        InstrumentationRegistry.getInstrumentation().targetContext.applicationContext as TestBaseApplication*/
 
     override fun injectTest(application: TestBaseApplication) {
         (application.appComponent as TestAppComponent)

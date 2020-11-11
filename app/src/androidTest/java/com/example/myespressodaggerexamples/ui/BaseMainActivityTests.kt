@@ -1,5 +1,6 @@
 package com.example.myespressodaggerexamples.ui
 
+import androidx.test.platform.app.InstrumentationRegistry
 import com.example.myespressodaggerexamples.TestBaseApplication
 import com.example.myespressodaggerexamples.api.FakeApiService
 import com.example.myespressodaggerexamples.di.TestAppComponent
@@ -33,4 +34,7 @@ abstract class BaseMainActivityTests {
         mainRepository.apiService = apiService
         return mainRepository
     }
+    fun getApp(): TestBaseApplication =
+        InstrumentationRegistry.getInstrumentation().targetContext.applicationContext as TestBaseApplication
+
 }

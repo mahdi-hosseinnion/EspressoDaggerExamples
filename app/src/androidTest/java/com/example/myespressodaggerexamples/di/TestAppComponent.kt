@@ -5,6 +5,7 @@ import com.example.myespressodaggerexamples.api.FakeApiService
 import com.example.myespressodaggerexamples.repository.FakeMainRepositoryImpl
 import com.example.myespressodaggerexamples.ui.DetailFragment
 import com.example.myespressodaggerexamples.ui.DetailFragmentTest
+import com.example.myespressodaggerexamples.ui.ListFragmentErrorTest
 import com.example.myespressodaggerexamples.ui.ListFragmentIntegrationTest
 import dagger.BindsInstance
 import dagger.Component
@@ -39,4 +40,5 @@ interface TestAppComponent : AppComponent {
 
     fun inject(detailFragmentTest: DetailFragmentTest)
     fun inject(listFragmentIntegrationTest: ListFragmentIntegrationTest)
+    fun inject(listFragmentErrorTest: ListFragmentErrorTest)
 }
