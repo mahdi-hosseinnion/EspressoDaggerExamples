@@ -25,20 +25,32 @@ class ListFragmentErrorTest : BaseMainActivityTests() {
     @Test
     fun isErrorDialogShown_unknownError() {
         //setup
-        val app = getApp()
-        val apiService = configureFakeApiService(
+        configureApiServiceAndRepositoryAndDaggerForTesting(
             blogPostJsonFileName = Constants.SERVER_ERROR_FILENAME,
             categoriesJsonFileName = Constants.CATEGORIES_DATA_FILENAME,
-            networkDelay = 0,
-            application = app
+            networkDelay = 0
         )
-        configureFakeRepository(apiService, app)
-        injectTest(app)
+
         //setup activity
         val scenario = launchActivity<MainActivity>()
 
         onView(withText(R.string.text_error)).check(matches(isDisplayed()))
         onView(withSubstring(Constants.UNKNOWN_ERROR)).check(matches(isDisplayed()))
+
+    }
+    @Test
+    fun isErrorDialogShown_timeOutError() {
+        //setup
+        configureApiServiceAndRepositoryAndDaggerForTesting(
+            blogPostJsonFileName = Constants.BLOG_POSTS_DATA_FILENAME,
+            categoriesJsonFileName = Constants.CATEGORIES_DATA_FILENAME,
+            networkDelay = 4000,
+        )
+        //setup activity
+        val scenario = launchActivity<MainActivity>()
+
+        onView(withText(R.string.text_error)).check(matches(isDisplayed()))
+        onView(withSubstring(Constants.NETWORK_ERROR_TIMEOUT)).check(matches(isDisplayed()))
 
     }
 

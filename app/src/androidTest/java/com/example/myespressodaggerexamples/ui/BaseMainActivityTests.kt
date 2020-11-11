@@ -5,6 +5,7 @@ import com.example.myespressodaggerexamples.TestBaseApplication
 import com.example.myespressodaggerexamples.api.FakeApiService
 import com.example.myespressodaggerexamples.di.TestAppComponent
 import com.example.myespressodaggerexamples.repository.FakeMainRepositoryImpl
+import com.example.myespressodaggerexamples.util.Constants
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
 
@@ -34,7 +35,23 @@ abstract class BaseMainActivityTests {
         mainRepository.apiService = apiService
         return mainRepository
     }
+
     fun getApp(): TestBaseApplication =
         InstrumentationRegistry.getInstrumentation().targetContext.applicationContext as TestBaseApplication
 
+    fun configureApiServiceAndRepositoryAndDaggerForTesting(
+        blogPostJsonFileName: String?,
+        categoriesJsonFileName: String?,
+        networkDelay: Long?
+    ) {
+        val app = getApp()
+        val apiService = configureFakeApiService(
+            blogPostJsonFileName = blogPostJsonFileName,
+            categoriesJsonFileName = categoriesJsonFileName,
+            networkDelay = networkDelay,
+            application = app
+        )
+        configureFakeRepository(apiService, app)
+        injectTest(app)
+    }
 }
