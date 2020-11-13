@@ -39,4 +39,5 @@ interface TestAppComponent : AppComponent {
     fun inject(listFragmentIntegrationTest: ListFragmentIntegrationTest)
     fun inject(listFragmentErrorTest: ListFragmentErrorTest)
     fun inject(mainNavigationTest: MainNavigationTest)
+    fun inject(listFragmentNavigationTest: ListFragmentNavigationTest)
 }
