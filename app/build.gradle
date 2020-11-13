@@ -16,8 +16,12 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "com.example.myespressodaggerexamples.MockTestRunner"
-    }
 
+        testInstrumentationRunnerArguments clearPackageData: 'true'
+    }
+    testOptions {
+        execution 'ANDROIDX_TEST_ORCHESTRATOR'
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -80,6 +84,11 @@ dependencies {
     implementation "com.afollestad.material-dialogs:core:$matieral_dialogs_version"
     //swipe refresh layout
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
+
+    // androidx.test
+    def androidx_test_runner = "1.2.0"
+    androidTestImplementation "androidx.test:runner:$androidx_test_runner"
+    androidTestUtil "androidx.test:orchestrator:$androidx_test_runner"
 
     // Espresso
     def androidx_espresso_core = "3.1.1"
